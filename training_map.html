@@ -1,13 +1,14 @@
 <!-- Include some styles from the main site (don't copy these) -->
 
 <meta charset='utf-8'/>
-<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,600,700i&display=swap"/>
+<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,600,700i&display=swap"/>
 <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,700,700i&display=swap"/>
 <style>
 body {
-  font-weight: 400;
+  font-weight: 200;
   font-size: 18px;
-  font-family: source-serif-pro,'Source Serif Pro',serif;
+  //font-family: source-serif-pro,'Source Serif Pro',serif;
+  font-family: 'Source Sans Pro',sans-serif;
   font-style: normal;
   letter-spacing: 0.02em;
   line-height: 1.5em;
@@ -49,7 +50,8 @@ h3 {
 
 #training-map .sidebar {
   position:absolute;
-  width:33.3333%;
+  width: 360px;
+  max-width: 50%;
   height: 100vh;
   top:0;
   left:0;
@@ -70,7 +72,7 @@ h3 {
   margin: 0;
   margin-top: -1px;
   box-sizing: border-box;
-  border: 2px solid #eee;
+  border: 2px solid rgb(224,224,224);
 }
 
 #training-map .listings {
@@ -81,24 +83,27 @@ h3 {
 }
 
 #training-map .listings .item {
-  display:block;
-  border-bottom:1px solid #eee;
-  padding:10px;
-  text-decoration:none;
+  border-bottom: 2px solid rgb(244,244,244);
   font-size: 0.9em;
+  padding: 15px 10px;
+}
+
+#training-map {
+  color: rgb(51,52,46);
+}
+
+#training-map .listings .item:hover,
+#training-map .listings .item.active {
+  cursor: pointer;
+  background-color: rgb(249,249,249);
 }
 
 #training-map .listings .item:last-child { border-bottom:none; }
 
-#training-map .listings .item .title small {
+#training-map .listings .item small {
   font-weight:400;
 }
-#training-map .listings .item.active .title,
-#training-map .listings .item .title:hover { color:#9e9e9e; }
-#training-map .listings .item.active {
-  background-color: #fdde33;
-  color: #000;
-}
+
 #training-map ::-webkit-scrollbar {
   width:3px;
   height:3px;
@@ -141,114 +146,47 @@ h3 {
   display:none;
 }
 .mapboxgl-popup-content {
-  font:400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
-  padding:0;
-}
-.mapboxgl-popup-content pre {
-  background: #eee;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+  font-size: 0.9rem;
+  min-width: 350px;
 }
 
-.mapboxgl-popup-content-wrapper {
-  padding:1%;
-}
-#training-map .mapboxgl-popup-content h3 {
-  background-color: #fdde33;
-  color: #000;
-  margin:0;
-  display:block;
-  padding: 10px;
-  border-radius:3px 3px 0 0;
-  font-weight:700;
-  margin-top:-15px;
-  font-size: 1.1em;
+#training-map .training-header strong,
+#training-map .training-header span {
+  white-space: nowrap;
 }
 
-#training-map .mapboxgl-popup-content h4 {
-  margin:0;
-  display:block;
-  padding: 10px;
-  font-weight: 100;
+#training-map .training-header {
+  margin-bottom: 10px;
 }
 
-#training-map .mapboxgl-popup-content h4 p {
-  margin: 10px 0;
+#training-map .training-header strong {
+  font-size: 1rem;
 }
 
-#training-map .mapboxgl-popup-content h4 p:last-child {
+#training-map .mapboxgl-popup-content p:last-child {
   margin-bottom: 0;
 }
 
-#training-map .mapboxgl-popup-content h4 p:first-child {
+#training-map .mapboxgl-popup-content p:first-child {
   margin-top: 0;
 }
 
-.mapboxgl-popup-content div {
-  padding:10px;
+#training-map .mapboxgl-popup-content {
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.mapboxgl-container .leaflet-marker-icon {
+#training-map .mapboxgl-container .leaflet-marker-icon {
   cursor:pointer;
 }
 
-.mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+#training-map .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
   margin-top: 15px;
 }
 
-.mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+#training-map .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
   border-bottom-color: #fdde33;
-}
-
-#training-map .toggle-div {
-    background: #fff;
-    position: absolute;
-    z-index: 1;
-    top: 10px;
-    right: 10px;
-}
-
-#training-map button.toggle {
-    font-size: 13px;
-    color: #000;
-    background: #fff;
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    text-align: center;
-    border: 1px solid rgba(0,0,0,0.4);
-}
-
-#training-map #show-map {
-  margin-bottom: 8px;
-}
-
-#training-map button.toggle:hover {
-    background-color: #f8f8f8;
-    color: #404040;
-}
-
-@media (max-width: 768px) {
-  #training-map h2 {
-    display: none;
-  }
-}
-
-@media (max-width: 420px) {
-  #training-map .sidebar {
-    width: 100%;
-  }
-
-  #training-map .heading {
-    padding-top: 10px;
-  }
-}
-
-@media (min-width: 420px) {
-  #training-map button.toggle {
-    display: none;
-  }
-  #training-map .coordinators-mobile {
-    display: none;
-  }
 }
 </style>
 
@@ -372,9 +310,17 @@ function linkEscape(s) {
     replace(/'/g, "&#x27;");
   if (escaped.match(/^\s*javascript/i))
     return '';
+  else if (escaped.match(/^bit\.ly/))
+    return 'https://'+escaped;
   else
     return escaped;
 }
+
+var defaultDescriptions = {
+  'LEADERS OF COLOR TRAINING': 'This training is for Sunrisers that identify as a person of color and are ready to step into their power and build a multiracial, cross-class movement to win a Green New Deal. We will embark on both individual and collective transformation through healing and a reclamation of our leadership narratives, centered on the power and strength of our racial and ethnic identities and how they qualify us to organize our communities. Participants can expect to be in community with people of color, embark on personal and collective transformation, and to develop their leadership and skills.',
+  'ANTI-RACIST TRAINING FOR WHITE LEADERS TRAINING': "In Sunrise, we are trying to unite this country in a single great aim to stop climate change and create millions of good jobs. The Green New Deal is the greatest project that this country has ever undertaken. It tackles decades of entrenched racism, and it means we’re going toe-to-toe with the wealthiest people in this land and the systems they have built to support them. While our movement works towards addressing racism on a structural level, we believe that internally and interpersonally there is a great deal of work that white people in our movement are responsible for to address racism in our hubs and organizational structure.<br><br>This training is for white hub leaders in our movement who are deeply committed to Sunrise and to making our movement spaces anti-racist.",
+  'ART ACTION TRAINING': "Calling all artists, designers, media-makers, crafters, meme-slingers, poets, painters, theatresses & other stripes of Sunrisers serious about art, creativity, strategy and direct action!<br><br>As Sunrisers, we know that visually compelling, narratively clear, and mediagenic actions -- like our sit in in Pelosi's office -- is part of how we put the Green New Deal on the map and grow our movement. This training aims to build out our network of Sunrisers around the country who have the skills and tools to bring the power of visual storytelling to bear in all our actions.",
+};
 
 function emailLink(email) {
   return `<a href="mailto:${htmlEscape(email)}">${htmlEscape(email)}</a>`;
@@ -382,11 +328,29 @@ function emailLink(email) {
 
 function trainingName(t) {
   var date = new Date(t.start_date);
-  return `<strong>${htmlEscape(t.type)}</strong><br><span> ${htmlEscape(t.city)}, ${htmlEscape(t.state)} | ${strftime("%B %e, %Y", date)}</span>`;
+  return `<strong>${htmlEscape((t.type||'').replace('None Violent', 'Non-Violent'))}</strong><br><span> ${htmlEscape(t.city)}, ${htmlEscape(t.state)} | ${strftime("%B %e, %Y", date)}</span>`;
 }
 
 function trainingInfo(t) {
-  return `${htmlEscape(t.description || "TODO")}`;
+  var s = '';
+
+  if (t.description) {
+    s += `<p>${htmlEscape(t.description)}</p>`;
+  } else if (defaultDescriptions[t.type.toUpperCase()]) {
+    s += `<p>${defaultDescriptions[t.type.toUpperCase()]}</p>`;
+  } else {
+    s += `<p>No description provided :(</p>`;
+  }
+
+  if (t.contact_email) {
+    s += `<p>For questions, please reach out to ${emailLink(t.contact_email)}.</p>`;
+  }
+
+  if (t.registration_link) {
+    s += `<p><a class='registration-link' href='${linkEscape(t.registration_link)}' target='_blank'>Register</a></p>`;
+  }
+
+  return s;
 }
 
 function geoJSONFeature(t) {
@@ -459,7 +423,7 @@ function initMap(trainings) {
 
     var trainingList = new List('training-list-sidebar', {
       listClass: 'listings',
-      valueNames: ['title']
+      valueNames: ['item']
     });
 
     // If mobile show map intially
@@ -533,17 +497,10 @@ function initMap(trainings) {
       var listing = listings.appendChild(document.createElement('div'));
       listing.className = 'item';
       listing.id = "listing-" + i;
+      listing.innerHTML = trainingName(t);
+      listing.dataPosition = i;
 
-      var link = listing.appendChild(document.createElement('a'));
-      link.className = 'title';
-      link.dataPosition = i;
-      link.innerHTML = trainingName(t);
-
-      var coordinatorsDivMobile = listing.appendChild(document.createElement('div'));
-      coordinatorsDivMobile.className = 'coordinators-mobile';
-      coordinatorsDivMobile.innerHTML = 'TODO Description';
-
-      link.addEventListener('click', function(e){
+      listing.addEventListener('click', function(e){
         // Update the currentFeature to the store associated with the clicked link
         var clickedListing = data.features[this.dataPosition];
 
@@ -555,7 +512,7 @@ function initMap(trainings) {
 
         // 3. Highlight listing in sidebar (and remove highlight for all other listings)
         $('#training-map .active').removeClass('active');
-        $(this.parentNode).addClass('active');
+        $(this).addClass('active');
       });
     }
   }
