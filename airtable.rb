@@ -23,7 +23,7 @@ class Training < Airrecord::Table
   end
 
   def should_appear_on_map?
-    upcoming? && self['Verified?']
+    upcoming? && self['Verified?'] && self['Latitude'] && self['Longitude']
   end
 
   def training_type
@@ -40,7 +40,7 @@ class Training < Airrecord::Table
       end_date: date_parse(self['End Date']),
       city: self['City'],
       state: self['State'],
-      type: training_type,
+      type: self['Computed Training Name'],
       description: self['Training Description'],
       contact_email: self['Training Contact email'] || self['Lead Trainer Email'],
       registration_link: self['Training Registration link'],
