@@ -44,6 +44,10 @@ h3 {
   padding-right: 0;
 }
 
+#training-map {
+  height: 400px;
+}
+
 #training-map *::-webkit-search-cancel-button {
   -webkit-appearance: searchfield-cancel-button;
 }
@@ -52,7 +56,7 @@ h3 {
   position:absolute;
   width: 360px;
   max-width: 50%;
-  height: 100vh;
+  height: 400px;
   top:0;
   left:0;
   z-index: 9999;
@@ -76,7 +80,7 @@ h3 {
 }
 
 #training-map .listings {
-  height: calc(100vh - 65px);
+  height: calc(400px - 32.5px);
   overflow:auto;
   background-color: white;
   border: 1px solid white;
@@ -328,7 +332,7 @@ function emailLink(email) {
 
 function trainingName(t) {
   var date = new Date(t.start_date);
-  return `<strong>${htmlEscape((t.type||'').replace('None Violent', 'Non-Violent'))}</strong><br><span> ${htmlEscape(t.city)}, ${htmlEscape(t.state)} | ${strftime("%B %e, %Y", date)}</span>`;
+  return `<strong class='training-name'>${htmlEscape((t.type||'').replace('None Violent', 'Non-Violent'))}</strong><br><span class='training-spacetime'> ${htmlEscape(t.city)}, ${htmlEscape(t.state)} | ${strftime("%B %e, %Y", date)}</span>`;
 }
 
 function trainingInfo(t) {
@@ -423,17 +427,8 @@ function initMap(trainings) {
 
     var trainingList = new List('training-list-sidebar', {
       listClass: 'listings',
-      valueNames: ['item']
+      valueNames: ['training-name', 'training-spacetime']
     });
-
-    // If mobile show map intially
-    if($(window).width() < 420) {
-      showMapMobile();
-      map.setZoom(1.5);
-      map.setCenter([-97.862265, 38.705787]);
-
-      $("#training-map .sidebar").css({height: "320px"});
-    }
   });
 
   // This is where your interactions with the symbol layer used to be
