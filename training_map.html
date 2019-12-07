@@ -454,12 +454,6 @@ function linkEscape(s) {
     return escaped;
 }
 
-var defaultDescriptions = {
-  'LEADERS OF COLOR TRAINING': 'This training is for Sunrisers that identify as a person of color and are ready to step into their power and build a multiracial, cross-class movement to win a Green New Deal. We will embark on both individual and collective transformation through healing and a reclamation of our leadership narratives, centered on the power and strength of our racial and ethnic identities and how they qualify us to organize our communities. Participants can expect to be in community with people of color, embark on personal and collective transformation, and to develop their leadership and skills.',
-  'ANTI-RACIST TRAINING FOR WHITE LEADERS TRAINING': "In Sunrise, we are trying to unite this country in a single great aim to stop climate change and create millions of good jobs. The Green New Deal is the greatest project that this country has ever undertaken. It tackles decades of entrenched racism, and it means we’re going toe-to-toe with the wealthiest people in this land and the systems they have built to support them. While our movement works towards addressing racism on a structural level, we believe that internally and interpersonally there is a great deal of work that white people in our movement are responsible for to address racism in our hubs and organizational structure.<br><br>This training is for white hub leaders in our movement who are deeply committed to Sunrise and to making our movement spaces anti-racist.",
-  'ART ACTION TRAINING': "Calling all artists, designers, media-makers, crafters, meme-slingers, poets, painters, theatresses & other stripes of Sunrisers serious about art, creativity, strategy and direct action!<br><br>As Sunrisers, we know that visually compelling, narratively clear, and mediagenic actions -- like our sit in in Pelosi's office -- is part of how we put the Green New Deal on the map and grow our movement. This training aims to build out our network of Sunrisers around the country who have the skills and tools to bring the power of visual storytelling to bear in all our actions.",
-};
-
 function emailLink(email) {
   return `<a href="mailto:${htmlEscape(email)}">${htmlEscape(email)}</a>`;
 }
@@ -474,8 +468,6 @@ function trainingInfo(t) {
 
   if (t.description) {
     s += `<p>${htmlEscape(t.description)}</p>`;
-  } else if (defaultDescriptions[(t.type||'').toUpperCase()]) {
-    s += `<p>${defaultDescriptions[(t.type||'').toUpperCase()]}</p>`;
   } else {
     s += `<p>No description provided :(</p>`;
   }
