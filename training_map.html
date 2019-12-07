@@ -1,7 +1,7 @@
 <!-- Include some styles from the main site (don't copy these) -->
 
 <meta charset='utf-8'/>
-<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,600,700i&display=swap"/>
+<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,200,300,400,500,600,700&display=swap"/>
 <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,700,700i&display=swap"/>
 <style>
 body {
@@ -38,6 +38,19 @@ h3 {
 
 <style>
 
+:root {
+  --tmap-white: #FFFFFF;
+  --tmap-black: #33342E;
+  --tmap-off-white: #F4F4F4;
+  --tmap-light-grey: #E0E0E0;
+
+  --tmap-small-font: 14px;
+  --tmap-large-font: 18px;
+
+  --tmap-height: 400px;
+  --tmap-width: 353px;
+}
+
 /* Fixes issue on mobile */
 [class*=sqs-col] .sqs-block {
   padding-left: 0;
@@ -45,7 +58,16 @@ h3 {
 }
 
 #training-map {
-  height: 400px;
+  height: var(--tmap-height);
+  color: var(--tmap-black);
+}
+
+#training-map .training-name {
+  font-weight: 600;
+}
+
+#training-map .training-spacetime {
+  font-weight: 300;
 }
 
 #training-map *::-webkit-search-cancel-button {
@@ -54,52 +76,40 @@ h3 {
 
 #training-map .sidebar {
   position:absolute;
-  width: 360px;
+  width: var(--tmap-width);
+  height: var(--tmap-height);
   max-width: 50%;
-  height: 400px;
   top:0;
   left:0;
   z-index: 9999;
-  background: #fff;
+  background: var(--tmap-white);
 }
 
 #training-map .map {
   position:absolute;
   width:100%;
-  top:0;bottom:0;
-}
-
-#training-map input.search {
-  padding: 1.25rem;
-  width: 100%;
-  font-size: 0.9em;
-  margin: 0;
-  margin-top: -1px;
-  box-sizing: border-box;
-  border: 2px solid rgb(224,224,224);
+  top:0;
+  bottom:0;
 }
 
 #training-map .listings {
-  height: calc(400px - 32.5px);
+  height: calc(var(--tmap-height) - 32.5px);
   overflow:auto;
-  background-color: white;
-  border: 1px solid white;
+  background-color: var(--tmap-white);
+  border: 1px solid var(--tmap-white);
 }
 
 #training-map .listings .item {
-  border-bottom: 2px solid rgb(244,244,244);
-  font-size: 0.9em;
-  padding: 15px 10px;
-}
-
-#training-map {
-  color: rgb(51,52,46);
+  border-bottom: 2px solid var(--tmap-off-white);
+  font-size: var(--tmap-large-font);
+  line-height: 27px;
+  padding: 17px 14px;
 }
 
 #training-map .listings .item:hover,
 #training-map .listings .item.active {
   cursor: pointer;
-  background-color: rgb(249,249,249);
+  background-color: var(--tmap-off-white);
 }
 
 #training-map .listings .item:last-child { border-bottom:none; }
@@ -114,10 +124,10 @@ h3 {
   border-left:0;
   background:rgba(0,0,0,0.1);
 }
-#training-map ::-webkit-scrollbar-track {
+#training-map::-webkit-scrollbar-track {
   background:none;
 }
-#training-map ::-webkit-scrollbar-thumb {
+#training-map::-webkit-scrollbar-thumb {
   background:#000;
   border-radius:0;
 }
@@ -141,18 +151,72 @@ h3 {
   visibility:hidden;
 }
 
+#training-map .search-bar {
+  position: relative;
+}
+
+#training-map input.search {
+  padding: 22px;
+  padding-left: 49px;
+  width: 100%;
+  margin: 0;
+  margin-top: -1px;
+  box-sizing: border-box;
+  font-size: var(--tmap-large-font);
+  line-height: 26px;
+  border: 2px solid var(--tmap-light-grey);
+}
+
+#training-map .search-icon {
+  background-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.9649 11.2549H12.7549L17.7449 16.2549L16.2549 17.7449L11.2549 12.7549V11.9649L10.9849 11.6849C9.84488 12.6649 8.36488 13.2549 6.75488 13.2549C3.16488 13.2549 0.254883 10.3449 0.254883 6.75488C0.254883 3.16488 3.16488 0.254883 6.75488 0.254883C10.3449 0.254883 13.2549 3.16488 13.2549 6.75488C13.2549 8.36488 12.6649 9.84488 11.6849 10.9849L11.9649 11.2549ZM2.25488 6.75488C2.25488 9.24488 4.26488 11.2549 6.75488 11.2549C9.24488 11.2549 11.2549 9.24488 11.2549 6.75488C11.2549 4.26488 9.24488 2.25488 6.75488 2.25488C4.26488 2.25488 2.25488 4.26488 2.25488 6.75488Z' fill='%2374756E'/%3E%3C/svg%3E%0A");
+  background-size: cover;
+  width: 17.5px;
+  height: 17.5px;
+  position: absolute;
+  left: 17.5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 /* Marker tweaks */
-.mapboxgl-popup {
+#training-map .mapboxgl-popup {
   padding-bottom: 50px;
 }
 
-.mapboxgl-popup-close-button {
+#training-map .mapboxgl-popup-close-button {
   display:none;
 }
-.mapboxgl-popup-content {
+#training-map .mapboxgl-popup-content {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
-  font-size: 0.9rem;
-  min-width: 350px;
+  font-weight: 300;
+  font-size: var(--tmap-small-font);
+  line-height: 22px;
+  min-width: var(--tmap-width);
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  max-height: calc(0.9 * var(--tmap-height));
+  overflow-y: scroll;
+  padding: 28px 30px;
+  padding-bottom: 0;
+}
+
+#training-map .mapboxgl-popup-content:after {
+  content: "";
+  display: block;
+  height: 30px;
+  width: 100%;
+}
+
+#training-map .training-info + .training-header {
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 2px solid var(--tmap-light-grey);
+}
+
+#training-map .training-header strong {
+  font-size: var(--tmap-large-font);
+  font-weight: 600;
+  line-height: 26px;
 }
 
 #training-map .training-header strong,
@@ -164,21 +228,12 @@ h3 {
   margin-bottom: 10px;
 }
 
-#training-map .training-header strong {
-  font-size: 1rem;
-}
-
 #training-map .mapboxgl-popup-content p:last-child {
   margin-bottom: 0;
 }
 
 #training-map .mapboxgl-popup-content p:first-child {
   margin-top: 0;
-}
-
-#training-map .mapboxgl-popup-content {
-  padding: 20px;
-  border-radius: 10px;
 }
 
 #training-map .mapboxgl-container .leaflet-marker-icon {
@@ -192,15 +247,94 @@ h3 {
 #training-map .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
   border-bottom-color: #fdde33;
 }
+
+#training-map .remote-trainings {
+  display: none; // HIDE FOR NOW
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateX(calc(100% + 37px));
+  background: var(--tmap-white);
+  border-radius: 30px;
+  height: 65px;
+  width: 235px;
+  white-space: nowrap;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+
+#training-map .remote-trainings:hover {
+  background: var(--tmap-off-white);
+}
+
+#training-map .remote-trainings-text {
+  position: absolute;
+  top: 50%;
+  left: 73px;
+  transform: translateY(-50%);
+  font-size: var(--tmap-large-font);
+  font-weight: 600;
+}
+
+#training-map .icon-expand-more {
+  background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.002 9.2625L16.5423 15L11.002 20.7375L12.7076 22.5L19.9657 15L12.7076 7.5L11.002 9.2625Z' fill='%2333342E'/%3E%3C/svg%3E%0A");
+  background-size: cover;
+}
+
+#training-map .registration-link {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--tmap-black);
+  text-decoration: none;
+  position: relative;
+}
+
+#training-map .registration-link .icon-expand-more {
+  width: 20px;
+  height: 30px;
+  display: inline-block;
+  position: absolute;
+  top: -2px;
+  right: -22px;
+  color: black;
+}
+
+#training-map .registration-link:hover {
+  cursor: pointer;
+}
+
+#training-map .remote-trainings-icon {
+  display: inline-block;
+  margin-top: 9px;
+  margin-left: 11px;
+  width: 47px;
+  height: 47px;
+  background-size: cover;
+  background-image: url(data:image/png;base64,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);
+}
 </style>
 
 <div id="training-map">
-    <div class='sidebar' id='training-list-sidebar'>
-      <input class='search' type='search' placeholder='Search for a training...'>
-      <div id='listings' class='listings'>
+  <div class='sidebar' id='training-list-sidebar'>
+    <div class='search-bar'>
+      <input class='search' type='search' placeholder='Search'>
+      <div class='search-icon'>
       </div>
     </div>
-    <div id='map' class='map'> </div>
+    <div id='listings' class='listings'>
+    </div>
+    <div class='remote-trainings'>
+      <div class='remote-trainings-icon'>
+      </div>
+      <span class='remote-trainings-text'>
+        Remote trainings
+      </span>
+    </div>
+  </div>
+  <div id='map' class='map'>
+  </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -340,8 +474,8 @@ function trainingInfo(t) {
 
   if (t.description) {
     s += `<p>${htmlEscape(t.description)}</p>`;
-  } else if (defaultDescriptions[t.type.toUpperCase()]) {
-    s += `<p>${defaultDescriptions[t.type.toUpperCase()]}</p>`;
+  } else if (defaultDescriptions[(t.type||'').toUpperCase()]) {
+    s += `<p>${defaultDescriptions[(t.type||'').toUpperCase()]}</p>`;
   } else {
     s += `<p>No description provided :(</p>`;
   }
@@ -351,7 +485,7 @@ function trainingInfo(t) {
   }
 
   if (t.registration_link) {
-    s += `<p><a class='registration-link' href='${linkEscape(t.registration_link)}' target='_blank'>Register</a></p>`;
+    s += `<p><a class='registration-link' href='${linkEscape(t.registration_link)}' target='_blank'>Learn more <span class='icon-expand-more'></a></p>`;
   }
 
   return s;
@@ -377,32 +511,15 @@ function showListMobile() {
 }
 
 $(document).ready(function() {
-  $("#show-map").click(function(){
-    showMapMobile();
-  });
-
-  $("#show-list").click(function(){
-    showListMobile();
-  });
-
-  $('#training-map').closest('.code-block').css('max-width', 'calc(100% - 1em)');
-
   $.ajax({
       type: "GET",
       url: "https://sunrise-trainings-json.s3.amazonaws.com/trainings.json",
       dataType: "json",
       success: function(data) {
-        var features = [];
-        for (var i=0; i < data.map_data.length; i++)
-          features.push(geoJSONFeature(data.map_data[i]));
-        initMap({
-          "type": "FeatureCollection",
-          "features": features
-        });
+        initMap(data.map_data);
       }
    });
 });
-
 
 function initMap(trainings) {
   mapboxgl.accessToken = 'pk.eyJ1IjoiYWxhdXJlbnppIiwiYSI6ImNqdDlna2o5ZTA0M2gzeW8zcWQwN3hnNDAifQ.uAXKXOB2I-G3gBXrkXWOrw';
@@ -412,18 +529,54 @@ function initMap(trainings) {
     style: 'mapbox://styles/mapbox/light-v9',
     center: [-112.030293, 39.585733],
     zoom: 2.5
-    //scrollZoom: false
   });
+
   // Add zoom and rotation controls to the map.
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+  var trainingsByPos = {};
+  var keys = [];
+
+  for (var i = 0; i < trainings.length; i++) {
+    var t = trainings[i];
+    var key = `${t.latitude}, ${t.longitude}`;
+    if (!trainingsByPos[key]) {
+      trainingsByPos[key] = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [t.longitude, t.latitude]
+        },
+        "properties": {
+          "trainings": []
+        }
+      };
+      keys.push(key);
+    }
+    trainingsByPos[key].properties.trainings.push(t);
+  }
+
+  var features = [];
+  for (var i = 0; i < keys.length; i++) {
+    var feature = trainingsByPos[keys[i]];
+    for (var j = 0; j < feature.properties.trainings.length; j++) {
+      var training = feature.properties.trainings[j];
+      training['position'] = i;
+      training['subindex'] = j;
+    }
+    features.push(feature);
+  }
 
   map.on('load', function (e) {
     map.addSource("places", {
       "type": "geojson",
-      "data": trainings
+      "data": {
+        "type": "FeatureCollection",
+        "features": features
+       }
     });
 
-    buildLocationList(trainings);
+    buildLocationList(features, trainings);
 
     var trainingList = new List('training-list-sidebar', {
       listClass: 'listings',
@@ -433,7 +586,7 @@ function initMap(trainings) {
 
   // This is where your interactions with the symbol layer used to be
   // Now you have interactions with DOM markers instead
-  trainings.features.forEach(function(marker, i) {
+  features.forEach(function(marker, i) {
     // Create an img element for the marker
     var el = document.createElement('div');
     el.id = "marker-" + i;
@@ -453,9 +606,9 @@ function initMap(trainings) {
         // 3. Highlight listing in sidebar (and remove highlight for all other listings)
         e.stopPropagation();
         $('#training-map .active').removeClass('active');
-        var link = $('#listing-'+ i);
+        var link = $('.listing-for-feature--'+ i);
         if (link.length) {
-          link.addClass('active');
+          $(link[0]).addClass('active');
           link[0].scrollIntoView({ block: 'nearest', inline: 'start' });
         }
     });
@@ -469,12 +622,14 @@ function initMap(trainings) {
     var popUps = document.getElementsByClassName('mapboxgl-popup');
     if (popUps[0]) popUps[0].remove();
 
-    var t = currentFeature.properties;
-
-    var popupHtml = (
-      `<div class='training-header'>${trainingName(t)}</div>` +
-      `<div class='training-info'>${trainingInfo(t)}</div>`
-    );
+    var ts = currentFeature.properties.trainings;
+    var popupHtml = '<div class="trainings-sublist">';
+    for (var i = 0; i < ts.length; i++) {
+      var t = ts[i];
+      popupHtml += `<div class='training-header training-header-${i}'>${trainingName(t)}</div>`;
+      popupHtml += `<div class='training-info training-info-${i}'>${trainingInfo(t)}</div>`;
+    }
+    popupHtml += '</div>';
 
     var popup = new mapboxgl.Popup({ closeOnClick: true, anchor: "left" })
       .on('close', function() { $('#training-map .item').removeClass('active'); })
@@ -483,21 +638,22 @@ function initMap(trainings) {
       .addTo(map);
   }
 
-  function buildLocationList(data) {
-    for (i = 0; i < data.features.length; i++) {
-      var currentFeature = data.features[i];
-      var t = currentFeature.properties;
-
+  function buildLocationList(features, trainings) {
+    for (var i = 0; i < trainings.length; i++) {
+      var t = trainings[i];
       var listings = document.getElementById('listings');
       var listing = listings.appendChild(document.createElement('div'));
       listing.className = 'item';
       listing.id = "listing-" + i;
+      listing.class = "listing-for-feature-" + t.position;
       listing.innerHTML = trainingName(t);
-      listing.dataPosition = i;
+      listing.dataPosition = t.position;
+      listing.dataSubindex = t.subindex;
 
       listing.addEventListener('click', function(e){
         // Update the currentFeature to the store associated with the clicked link
-        var clickedListing = data.features[this.dataPosition];
+        var clickedListing = features[this.dataPosition];
+        var j = this.dataSubindex;
 
         // 1. Fly to the point
         flyToStore(clickedListing);
@@ -508,6 +664,12 @@ function initMap(trainings) {
         // 3. Highlight listing in sidebar (and remove highlight for all other listings)
         $('#training-map .active').removeClass('active');
         $(this).addClass('active');
+
+        // 4. scroll to entry if it's not visible
+        var sublisting = $(`.trainings-sublist .training-header-${j}`);
+        if (j > 0 && sublisting.length) {
+          sublisting[0].scrollIntoView(true);
+        }
       });
     }
   }
