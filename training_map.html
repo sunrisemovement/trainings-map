@@ -47,8 +47,9 @@ h3 {
   --tmap-small-font: 14px;
   --tmap-large-font: 18px;
 
-  --tmap-height: 400px;
-  --tmap-width: 353px;
+  --tmap-height: 564px;
+  --tmap-width: 300px;
+  --tmap-bottom-padding: 24px;
 }
 
 /* Fixes issue on mobile */
@@ -75,25 +76,26 @@ h3 {
 }
 
 #training-map .sidebar {
-  position:absolute;
+  position: absolute;
   width: var(--tmap-width);
-  height: var(--tmap-height);
+  max-height: calc(var(--tmap-height) - var(--tmap-bottom-padding));
   max-width: 50%;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   z-index: 9999;
   background: var(--tmap-white);
 }
 
 #training-map .map {
-  position:absolute;
-  width:100%;
-  top:0;
-  bottom:0;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: var(--tmap-bottom-padding);
 }
 
 #training-map .listings {
-  height: calc(var(--tmap-height) - 32.5px);
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+  max-height: calc(var(--tmap-height) - 41px - var(--tmap-bottom-padding));
   overflow:auto;
   background-color: var(--tmap-white);
   border: 1px solid var(--tmap-white);
@@ -217,11 +219,6 @@ h3 {
   font-size: var(--tmap-large-font);
   font-weight: 600;
   line-height: 26px;
-}
-
-#training-map .training-header strong,
-#training-map .training-header span {
-  white-space: nowrap;
 }
 
 #training-map .training-header {
@@ -598,7 +595,7 @@ function initMap(trainings) {
         // 3. Highlight listing in sidebar (and remove highlight for all other listings)
         e.stopPropagation();
         $('#training-map .active').removeClass('active');
-        var link = $('.listing-for-feature--'+ i);
+        var link = $('.listing-for-feature-'+ i);
         if (link.length) {
           $(link[0]).addClass('active');
           link[0].scrollIntoView({ block: 'nearest', inline: 'start' });
@@ -635,9 +632,8 @@ function initMap(trainings) {
       var t = trainings[i];
       var listings = document.getElementById('listings');
       var listing = listings.appendChild(document.createElement('div'));
-      listing.className = 'item';
       listing.id = "listing-" + i;
-      listing.class = "listing-for-feature-" + t.position;
+      listing.className = "item listing-for-feature-" + t.position;
       listing.innerHTML = trainingName(t);
       listing.dataPosition = t.position;
       listing.dataSubindex = t.subindex;
@@ -658,9 +654,9 @@ function initMap(trainings) {
         $(this).addClass('active');
 
         // 4. scroll to entry if it's not visible
-        var sublisting = $(`.trainings-sublist .training-header-${j}`);
+        var sublisting = $(`.trainings-sublist .training-info-${j}`);
         if (j > 0 && sublisting.length) {
-          sublisting[0].scrollIntoView(true);
+          sublisting[0].scrollIntoView({block: "nearest", inline: "start"});
         }
       });
     }
