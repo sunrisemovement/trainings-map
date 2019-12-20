@@ -2,6 +2,7 @@ require 'airrecord'
 require 'dotenv'
 require 'pry'
 require 'rb-readline'
+require 'json'
 
 Dotenv.load
 Airrecord.api_key = ENV['AIRTABLE_API_KEY']
@@ -22,8 +23,35 @@ class Training < Airrecord::Table
     false
   end
 
+  def has_lat_lng?
+    self['Latitude'] && self['Longitude']
+  end
+
   def should_appear_on_map?
-    upcoming? && self['Verified?'] && self['Latitude'] && self['Longitude']
+    return false unless upcoming?
+    return false unless self['Verified?']
+    return true if has_lat_lng?
+    populate_lat_lng!
+    has_lat_lng?
+  end
+
+  def computed_lat_lng
+    loc = "#{self['City']}, #{self['State']}"
+    a = `curl https://api.mapbox.com/geocoding/v5/mapbox.places/#{URI.encode(loc)}.json?access_token=#{ENV['MAPBOX_API_KEY']}`
+    lng, lat = JSON.parse(a)['features'][0]['center']
+    return lat, lng
+  rescue
+    return nil, nil
+  end
+
+  def populate_lat_lng!
+    raise if has_lat_lng?
+    return unless ENV['MAPBOX_API_KEY']
+    lat, lng = computed_lat_lng
+    return unless lat && lng
+    self['Latitude'] = lat
+    self['Longitude'] = lng
+    save
   end
 
   def training_type
