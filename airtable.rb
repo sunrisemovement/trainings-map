@@ -54,14 +54,6 @@ class Training < Airrecord::Table
     save
   end
 
-  def training_type
-    if self['Type of Training'] == 'other'
-      self['If you do not see your workshop listed above, please write here']
-    else
-      self['Type of Training']
-    end
-  end
-
   def map_entry
     return {
       start_date: date_parse(self['Start Date']),
