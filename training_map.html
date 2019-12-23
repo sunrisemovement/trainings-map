@@ -456,8 +456,24 @@ function emailLink(email) {
 }
 
 function trainingName(t) {
-  var date = new Date(t.start_date);
-  return `<strong class='training-name'>${htmlEscape((t.type||'').replace('None Violent', 'Non-Violent'))}</strong><br><span class='training-spacetime'> ${htmlEscape(t.city)}, ${htmlEscape(t.state)} | ${strftime("%B %e, %Y", date)}</span>`;
+  var t1 = new Date(t.start_date);
+  var date;
+  if (t.end_date && t.end_date != t.start_date) {
+    var t2 = new Date(t.end_date);
+    if (t1 == t2) {
+      date = strftime("%B %e, %Y", t1);
+    } else if (t1.getMonth() == t2.getMonth() && t1.getYear() == t2.getYear()) {
+      date = `${strftime("%B %e", t1)}-${strftime("%e, %Y", t2)}`;
+    } else if (t1.getYear() == t2.getYear()) {
+      date = `${strftime("%b %e", t1)} - ${strftime("%b %e, %Y", t2)}`;
+    } else {
+      date = `${strftime("%b %e, %Y", t1)} - ${strftime("%b %e, %Y", t2)}`;
+    }
+  } else {
+    date = strftime("%B %e, %Y", t1);
+  }
+
+  return `<strong class='training-name'>${htmlEscape((t.type||'').replace('None Violent', 'Non-Violent'))}</strong><br><span class='training-spacetime'> ${htmlEscape(t.city)}, ${htmlEscape(t.state)} | ${date}</span>`;
 }
 
 function trainingInfo(t) {
