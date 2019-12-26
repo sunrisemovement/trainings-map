@@ -63,7 +63,6 @@ class Training < Airrecord::Table
       state: self['State'],
       type: self['Computed Training Name'],
       description: self['Training Description'],
-      contact_email: self['Training Contact email'],
       registration_link: self['Training Registration link'],
       latitude: self['Latitude'],
       longitude: self['Longitude']

@@ -483,10 +483,6 @@ function trainingInfo(t) {
     s += `<p>${htmlEscape(t.description)}</p>`;
   }
 
-  if (t.contact_email) {
-    s += `<p>For questions, please reach out to ${emailLink(t.contact_email)}.</p>`;
-  }
-
   if (t.registration_link) {
     s += `<p><a class='registration-link' href='${linkEscape(t.registration_link)}' target='_blank'>Learn more <span class='icon-expand-more'></a></p>`;
   }
