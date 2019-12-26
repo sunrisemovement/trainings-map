@@ -30,6 +30,7 @@ class Training < Airrecord::Table
   def should_appear_on_map?
     return false unless upcoming?
     return false unless self['Verified?']
+    return false unless self['Training Registration link']
     return true if has_lat_lng?
     populate_lat_lng!
     has_lat_lng?
