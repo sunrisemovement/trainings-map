@@ -455,11 +455,16 @@ function emailLink(email) {
   return `<a href="mailto:${htmlEscape(email)}">${htmlEscape(email)}</a>`;
 }
 
+function parseDate(s) {
+  var parts = s.split('-');
+  return new Date(parts[0], parts[1] - 1, parts[2]);
+}
+
 function trainingName(t) {
-  var t1 = new Date(t.start_date);
+  var t1 = parseDate(t.start_date);
   var date;
   if (t.end_date && t.end_date != t.start_date) {
-    var t2 = new Date(t.end_date);
+    var t2 = parseDate(t.end_date);
     if (t1 == t2) {
       date = strftime("%B %e, %Y", t1);
     } else if (t1.getMonth() == t2.getMonth() && t1.getYear() == t2.getYear()) {

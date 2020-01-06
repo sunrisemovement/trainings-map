@@ -18,7 +18,7 @@ class Training < Airrecord::Table
   self.table_name = 'Trainings'
 
   def upcoming?
-    Date.parse(self['Start Date']) >= Date.today
+    Date.parse(self['ISO Start Date']) >= Date.today
   rescue
     false
   end
@@ -57,8 +57,8 @@ class Training < Airrecord::Table
 
   def map_entry
     return {
-      start_date: date_parse(self['Start Date']),
-      end_date: date_parse(self['End Date']),
+      start_date: self['ISO Start Date'],
+      end_date: self['ISO End Date'],
       city: self['City'],
       state: self['State'],
       type: self['Computed Training Name'],
@@ -70,6 +70,6 @@ class Training < Airrecord::Table
   end
 
   def self.map_json
-    all.select(&:should_appear_on_map?).map(&:map_entry).sort_by { |e| e[:start_date] }
+    all.select(&:should_appear_on_map?).map(&:map_entry).sort_by { |e| [e[:start_date], e[:city]] }
   end
 end
