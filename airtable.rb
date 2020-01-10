@@ -64,6 +64,7 @@ class Training < Airrecord::Table
       type: self['Computed Training Name'],
       description: self['Training Description'],
       registration_link: self['Training Registration link'],
+      registration_deadline: self['ISO Registration Deadline'],
       latitude: self['Latitude'],
       longitude: self['Longitude']
     }
