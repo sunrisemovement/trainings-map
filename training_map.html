@@ -592,6 +592,11 @@ function initMap(trainings) {
     });
   });
 
+  map.on('moveend', function() {
+    var my = $('#training-map .mapboxgl-popup')[0];
+    my.style.transform = my.style.transform.replace("-50%", "calc(-50% - 0.5px)");
+  });
+
   // This is where your interactions with the symbol layer used to be
   // Now you have interactions with DOM markers instead
   features.forEach(function(marker, i) {
