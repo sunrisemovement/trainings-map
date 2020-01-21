@@ -157,16 +157,43 @@ h3 {
   position: relative;
 }
 
-#training-map input.search {
+#training-map input.search,
+#training-map button.toggle {
   padding: 22px;
-  padding-left: 49px;
-  width: 100%;
   margin: 0;
-  margin-top: -1px;
-  box-sizing: border-box;
   font-size: var(--tmap-large-font);
   line-height: 26px;
+}
+
+#training-map input.search {
+  padding-left: 49px;
+  width: 100%;
+  margin-top: -1px;
+  box-sizing: border-box;
   border: 2px solid var(--tmap-light-grey);
+}
+
+#training-map button.toggle {
+  color: var(--tmap-black);
+  background: var(--tmap-white);
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid var(--tmap-light-grey);
+  border-bottom-width: 2px;
+}
+
+#training-map #show-map {
+  position: absolute;
+  width: 25%;
+  top: 0;
+  right: 1;
+  z-index: 2;
+}
+
+#training-map button.toggle:hover {
+  background-color: var(--tmap-off-white);
+  cursor: pointer;
 }
 
 #training-map .search-icon {
@@ -311,10 +338,60 @@ h3 {
   background-size: cover;
   background-image: url(data:image/png;base64,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);
 }
+
+@media (max-width: 420px) {
+  #training-map .sidebar {
+    width: 100%;
+    max-width: none;
+  }
+
+  #training-map .heading {
+    padding-top: 10px;
+  }
+
+  #training-map input.search {
+    width: 75%;
+  }
+}
+
+@media (min-width: 420px) {
+  #training-map button.toggle {
+    display: none;
+  }
+  #training-map .trainings-mobile {
+    display: none;
+  }
+}
+
+#training-map .trainings-mobile {
+  margin-top: 5px;
+}
+
+#training-map .trainings-mobile p {
+  margin: 0;
+}
+
+#training-map .trainings-mobile p:last-of-type {
+  margin-bottom: 5px;
+}
+
+#training-map .toggle-div {
+  background: #fff;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 1;
+}
+
+#training-map #show-list {
+  border-left-width: 2px;
+}
+
 </style>
 
 <div id="training-map">
   <div class='sidebar' id='training-list-sidebar'>
+    <button id="show-map" class="toggle">Map</button>
     <div class='search-bar'>
       <input class='search' type='search' placeholder='Search'>
       <div class='search-icon'>
@@ -330,6 +407,9 @@ h3 {
       </span>
     </div>
   </div>
+  <nav class="toggle-div">
+    <button id="show-list" class="toggle">Show List</button>
+  </nav>
   <div id='map' class='map'>
   </div>
 </div>
@@ -499,6 +579,17 @@ function trainingInfo(t) {
   return s;
 }
 
+function mobileContent(t) {
+  var s = '<div class="trainings-mobile">';
+
+  if (t.registration_link) {
+    s += `<a class='registration-link' href='${linkEscape(t.registration_link)}' target='_blank'>Learn more <span class='icon-expand-more'></a>`;
+  }
+
+  s += '</div>';
+  return s;
+}
+
 function geoJSONFeature(t) {
   return {
     "type": "Feature",
@@ -519,6 +610,14 @@ function showListMobile() {
 }
 
 $(document).ready(function() {
+  $("#show-map").click(function(){
+    showMapMobile();
+  });
+
+  $("#show-list").click(function(){
+    showListMobile();
+  });
+
   $.ajax({
       type: "GET",
       url: "https://sunrise-trainings-json.s3.amazonaws.com/trainings.json",
@@ -660,7 +759,7 @@ function initMap(trainings) {
       var listing = listings.appendChild(document.createElement('div'));
       listing.id = "listing-" + i;
       listing.className = "item listing-for-feature-" + t.position;
-      listing.innerHTML = trainingName(t);
+      listing.innerHTML = trainingName(t) + mobileContent(t);
       listing.dataPosition = t.position;
       listing.dataSubindex = t.subindex;
 
